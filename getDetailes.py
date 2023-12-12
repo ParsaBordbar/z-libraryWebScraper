@@ -6,6 +6,7 @@ import json
 book_details = {
     'title': ...,
     'author': ...,
+    'imgLink': ...,
     'desc': ...,
     'Categories': ...,
     'Year': ...,
@@ -20,7 +21,7 @@ book_details = {
     'IPFS CID': ...,
     'IPFS CID blake2b': ...,
 }
-
+index_of_cover_image = 1
 main_url = r'https://singlelogin.re'
 page_categories = '/categories'
 
@@ -43,5 +44,20 @@ for book in books:
 url_book01 = books[0]['href']
 print(url_book01)
 response = requests.get(main_url + url_book01)
-print(response.text)
 
+soup = BeautifulSoup(response.text, 'html.parser')
+book_title = soup.select('h1')[0].text.strip()
+print('Book Title: ' + book_title)
+
+soup = BeautifulSoup(response.text, 'html.parser')
+book_author = soup.select('.col-sm-9 .color1')[0].text.strip()
+print('Book author: ' + book_author)
+
+soup = BeautifulSoup(response.text, 'html.parser')
+book_desc = soup.select('#bookDescriptionBox')[0].text.strip()
+print('Book desc: ' + book_desc)
+
+soup = BeautifulSoup(response.text, 'html.parser')
+
+book_img = soup.select('img')[index_of_cover_image]['src']
+print('Book img: ' + book_img)
