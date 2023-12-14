@@ -90,6 +90,49 @@ def get_books (categories, category_num):
         print('Book img: ' + book_img)
         print('_______________________________________________________________')
 
+        #Getting Book Edition
+        try:
+          book_edition = soup.select('.property_edition .property_value')[0].text
+          print( 'Book Edition: ' + book_edition)
+        except:
+            print('No Edition!')
+
+
+        #Getting Book IPFS CID blake2b
+        book_cid_blake = soup.select('.property_ipfs_blake2b_cid span ')[0].text
+        print( 'Book IPFS CID blacke2b : ' + book_cid_blake)
+        
+        #Getting Book IPFS CID 
+        book_cid = soup.select('.property_ipfs_cid span')[0].text
+        print( 'Book IPFS CID : ' + book_cid)
+
+        # #Getting Book ISBN 10 
+        # book_isbn_10 = soup.select(' .property_value .{10}')[0].text
+        # print( 'Book ISBN 10  : ' + book_isbn_10)
+        
+        #Getting Book Year
+        book_year = soup.select('.property_year .property_value')[0].text
+        print('Book Year : ' + book_year)
+
+        #Getting book pages
+        book_pages = soup.select('.property_pages .property_value')[0].text
+        print('book pages : ' + book_pages)
+
+        #Getting book ISBN 13
+        # book_isbn_13 = soup.select('.13 .property_value')[0].text
+        # print('book ISBN 13 : ' + book_isbn_13)
+
+        #Getting book Series
+        try:
+          book_series = soup.select('.property_series .property_value')[0].text
+          print('book series : ' + book_series)
+        except:
+          print('No Series!')
+
+          #Getting book file
+          book_file = soup.select('.property__file .property_value')[0].text
+          print('book file : ' + book_file)
+
 #The Dictionary From get_books will be parsed into To Json here!
 def parse_to_json(detail_dic):
     json_object = json.dumps(detail_dic, indent=16)
