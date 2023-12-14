@@ -1,0 +1,19 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+.desc-style{
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.container {
+  width: 1440px;
+  margin: 0 auto;
+  padding: 64px 0px;
+}
+
+.card{
+    width: 49%;
+}
