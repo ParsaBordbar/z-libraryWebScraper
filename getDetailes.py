@@ -50,7 +50,7 @@ def get_books (categories, category_num):
     
     books = soup.select('h3 a')
     for i, book in enumerate(books):
-        if i >= 5:
+        if i >= 10:
             break
         print(book.text)
         url_book = book['href']
@@ -88,15 +88,13 @@ def get_books (categories, category_num):
         soup = BeautifulSoup(response.text, 'html.parser')
         book_img = soup.select('img')[index_of_cover_image]['src']
         print('Book img: ' + book_img)
-        print('_______________________________________________________________')
-
-        #Getting Book Edition
+        
+                #Getting Book Edition
         try:
           book_edition = soup.select('.property_edition .property_value')[0].text
           print( 'Book Edition: ' + book_edition)
         except:
             print('No Edition!')
-
 
         #Getting Book IPFS CID blake2b
         book_cid_blake = soup.select('.property_ipfs_blake2b_cid span ')[0].text
@@ -106,9 +104,12 @@ def get_books (categories, category_num):
         book_cid = soup.select('.property_ipfs_cid span')[0].text
         print( 'Book IPFS CID : ' + book_cid)
 
-        # #Getting Book ISBN 10 
-        # book_isbn_10 = soup.select(' .property_value .{10}')[0].text
-        # print( 'Book ISBN 10  : ' + book_isbn_10)
+        #Getting Book ISBN 10 
+        try:
+            book_isbn_10 = soup.select(' .property_value .{10}')[0].text
+            print( 'Book ISBN 10  : ' + book_isbn_10)
+        except:
+            print('No box ISBN10')
         
         #Getting Book Year
         book_year = soup.select('.property_year .property_value')[0].text
@@ -119,9 +120,11 @@ def get_books (categories, category_num):
         print('book pages : ' + book_pages)
 
         #Getting book ISBN 13
-        # book_isbn_13 = soup.select('.13 .property_value')[0].text
-        # print('book ISBN 13 : ' + book_isbn_13)
-
+        try:
+            book_isbn_13 = soup.select('.13 .property_value')[0].text
+            print('book ISBN 13 : ' + book_isbn_13)
+        except:
+            print('No ISBN13')
         #Getting book Series
         try:
           book_series = soup.select('.property_series .property_value')[0].text
@@ -129,9 +132,12 @@ def get_books (categories, category_num):
         except:
           print('No Series!')
 
-          #Getting book file
-          book_file = soup.select('.property__file .property_value')[0].text
-          print('book file : ' + book_file)
+        #Getting book file
+        book_file = soup.select('.property__file .property_value')[0].text
+        print('book file : ' + book_file)
+        print('_______________________________________________________________')
+
+
 
 #The Dictionary From get_books will be parsed into To Json here!
 def parse_to_json(detail_dic):
