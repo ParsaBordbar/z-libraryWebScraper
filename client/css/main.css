@@ -1,8 +1,5 @@
-@tailwind base;
-@tailwind components;
-@tailwind utilities;
 
-.desc-style{
+.text-style{
   white-space: nowrap;
   overflow: hidden;
   text-overflow: ellipsis;
