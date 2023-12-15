@@ -1,11 +1,9 @@
 import requests
 from bs4 import BeautifulSoup
 import json
+import os 
 
-#Note: The get_books Func Will be updated to generate Dicts for each book. P.B.
-
-import json
-
+#Makes a Costume Json Encoder (Ellipsis objects can't be parsed to json) 
 class JSONEncoder(json.JSONEncoder):
     def default(self, obj):
         if obj is Ellipsis:
@@ -13,10 +11,9 @@ class JSONEncoder(json.JSONEncoder):
         return super().default(obj)
 
 
-books_detail_list = []
-
 main_url = r'https://singlelogin.re'
 page_categories = '/categories'
+books_detail_list = []
 
 def get_categories(main_url, page_categories):
     
@@ -41,7 +38,6 @@ def get_books (categories, category_num):
     for i, book in enumerate(books):
         if i >= 10:
             break
-        print(book.text)
         url_book = book['href']
 
         response = requests.get(main_url + url_book)
@@ -136,14 +132,14 @@ def get_books (categories, category_num):
             IPFS_CID_blake2b= book_cid_blake,
                            )
         books_detail_list.append(detail_dict)
-        return books_detail_list
+    return books_detail_list
 
 
 #The Dictionary From get_books will be parsed into To Json here!
 def parse_to_json(books_detail_list):
     for detail_dict in books_detail_list:
-            filename = detail_dict['title'].replace(' ', '_')
-            data = {filename : detail_dict}
+            filename = detail_dict['title'].replace(' ', '_') + '.json'
+            data = {filename: detail_dict}
             json_object = json.dumps(data, cls=JSONEncoder)
             with open(filename, "w") as outfile:
                 outfile.write(json_object)
