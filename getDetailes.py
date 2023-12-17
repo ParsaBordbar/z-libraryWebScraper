@@ -1,9 +1,10 @@
-import requests
+import requests, json, os, re, logging
 from bs4 import BeautifulSoup
-import json
-import os 
-import re
-import logging
+
+
+main_url = r'https://singlelogin.re'
+page_categories = '/categories'
+books_detail_list = []
 
 #Makes a Costume Json Encoder (Ellipsis objects can't be parsed to json) 
 class JSONEncoder(json.JSONEncoder):
@@ -12,13 +13,16 @@ class JSONEncoder(json.JSONEncoder):
             return 'detail_dict'
         return super().default(obj)
 
+#Make Directories for Categories and books
+def make_directory(dir_name, dir_parent):    
+    path = os.path.join(dir_parent, file_name_validation(dir_name))
+    try:
+        os.mkdir(path)
+    except:
+        print('Such directory exists.')
 
-main_url = r'https://singlelogin.re'
-page_categories = '/categories'
-books_detail_list = []
 
 def get_categories(main_url, page_categories):
-    
     #Sending a Request 
     response = requests.get(main_url + page_categories)
     soup = BeautifulSoup(response.text, 'html.parser')
@@ -27,12 +31,12 @@ def get_categories(main_url, page_categories):
     categories = soup.select('.category-name a')
     return categories #Returns a List here be careful!
 
+
 #Should Return a Dictionary 
 def get_books (category):
-    
     url_category = category['href']
     index_of_cover_image = 1
-
+    
     response = requests.get(main_url + url_category)
     soup = BeautifulSoup(response.text, 'html.parser')
     
@@ -138,32 +142,32 @@ def get_books (category):
         books_detail_list.append(detail_dict)
     return books_detail_list
 
+
 #This Function cheeks if the File name is Valid or not if not, change it to be Valid.
 def file_name_validation(file_name):
-    
-    invalid_chars = r'[\\/:\*\?"<>\|]'
+    invalid_chars = r'[\\/:\*\?"<>\|]' 
+    #This characters are not Valid to be in a File name on Windows 
     if re.search(invalid_chars, file_name):
         valid_filename = re.sub(invalid_chars, '_', file_name)
         return valid_filename
         return False
-    else:
-        return file_name
+    return file_name
 
-
+#This will Download Book Covers!
+def img_downloader():
+    pass
 
 #The Dictionaries from get_books will be parsed into To json files here!
-def parse_to_json(books_detail_list):
-    print(*books_detail_list, sep='\n______________________________\n')
-    i = 0
+def parse_to_json(books_detail_list, category_dir):
     for detail_dict in books_detail_list:
-        i += 1
-        filename = str(i) +"_" + detail_dict['title'] + '.json'
+        filename = detail_dict['title'] + '.json'
         valid_file_name = file_name_validation(filename)
         data = {valid_file_name: detail_dict}
         json_object = json.dumps(data, cls=JSONEncoder)
-        with open("./books/" + valid_file_name, "w") as outfile:
+        with open(valid_file_name, "w") as outfile:
             outfile.write(json_object)
 
 catagories = get_categories(main_url, page_categories)
 details = get_books(catagories[0])
-parse_to_json(details)
+category_dir = make_directory(catagories[0].text, './books/')
+parse_to_json(details, category_dir)
