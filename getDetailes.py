@@ -2,6 +2,8 @@ import requests
 from bs4 import BeautifulSoup
 import json
 import os 
+import re
+import logging
 
 #Makes a Costume Json Encoder (Ellipsis objects can't be parsed to json) 
 class JSONEncoder(json.JSONEncoder):
@@ -26,9 +28,9 @@ def get_categories(main_url, page_categories):
     return categories #Returns a List here be careful!
 
 #Should Return a Dictionary 
-def get_books (categories, category_num):
+def get_books (category):
     
-    url_category = categories[category_num]['href']
+    url_category = category['href']
     index_of_cover_image = 1
 
     response = requests.get(main_url + url_category)
@@ -51,9 +53,11 @@ def get_books (categories, category_num):
         book_author = soup.select('.col-sm-9 .color1')[0].text.strip()
 
         #Getting Books Description
-        soup = BeautifulSoup(response.text, 'html.parser')
-        book_desc = soup.select('#bookDescriptionBox')[0].text.strip()
-
+        try:
+            soup = BeautifulSoup(response.text, 'html.parser')
+            book_desc = soup.select('#bookDescriptionBox')[0].text.strip()
+        except:
+            book_desc = 'No description!'
         #Getting Book Category
         book_cat = soup.select('.property_value a')[0].text
 
@@ -134,17 +138,32 @@ def get_books (categories, category_num):
         books_detail_list.append(detail_dict)
     return books_detail_list
 
+#This Function cheeks if the File name is Valid or not if not, change it to be Valid.
+def file_name_validation(file_name):
+    
+    invalid_chars = r'[\\/:\*\?"<>\|]'
+    if re.search(invalid_chars, file_name):
+        valid_filename = re.sub(invalid_chars, '_', file_name)
+        return valid_filename
+        return False
+    else:
+        return file_name
 
-#The Dictionary From get_books will be parsed into To Json here!
+
+
+#The Dictionaries from get_books will be parsed into To json files here!
 def parse_to_json(books_detail_list):
+    print(*books_detail_list, sep='\n______________________________\n')
+    i = 0
     for detail_dict in books_detail_list:
-            filename = detail_dict['title'].replace(' ', '_') + '.json'
-            data = {filename: detail_dict}
-            json_object = json.dumps(data, cls=JSONEncoder)
-            with open(filename, "w") as outfile:
-                outfile.write(json_object)
-            continue
+        i += 1
+        filename = str(i) +"_" + detail_dict['title'] + '.json'
+        valid_file_name = file_name_validation(filename)
+        data = {valid_file_name: detail_dict}
+        json_object = json.dumps(data, cls=JSONEncoder)
+        with open("./books/" + valid_file_name, "w") as outfile:
+            outfile.write(json_object)
 
 catagories = get_categories(main_url, page_categories)
-details = get_books(catagories, 0)
+details = get_books(catagories[0])
 parse_to_json(details)
