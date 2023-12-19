@@ -179,14 +179,15 @@ def parse_to_json(detail_dict, category_dir):
 
 def saved_books(books_detail_list, category_dir):
     for detail_dict in books_detail_list:
-        parse_to_json(detail_dict, category_dir)
         filename = detail_dict['title'] 
         valid_file_name = file_name_validation(filename)
-        path = category_dir + "\\" + valid_file_name
+        book_dir = make_directory(valid_file_name, category_dir)
+        parse_to_json(detail_dict, book_dir)
+        path = book_dir + "\\" + valid_file_name
         img_downloader(detail_dict['imgLink'], path)
     
 catagories = get_categories(main_url, page_categories)
-details = get_books(catagories[4])
+details = get_books(catagories[1])
 books_dir = make_directory("Books", ".")
-category_dir = make_directory(catagories[4].text, books_dir)
+category_dir = make_directory(catagories[1].text, books_dir)
 saved_books(details, category_dir)
