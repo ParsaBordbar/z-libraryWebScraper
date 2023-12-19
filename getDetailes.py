@@ -1,4 +1,9 @@
-import requests, json, os, re, logging
+from bs4 import BeautifulSoup
+import requests
+import json
+import os 
+import re
+import logging
 from bs4 import BeautifulSoup
 
 
@@ -20,7 +25,7 @@ def make_directory(dir_name, dir_parent):
         os.mkdir(path)
     except:
         print('Such directory exists.')
-
+    return path
 
 def get_categories(main_url, page_categories):
     #Sending a Request 
@@ -103,8 +108,11 @@ def get_books (category):
         book_year = soup.select('.property_year .property_value')[0].text
 
         #Getting book pages
-        book_pages = soup.select('.property_pages .property_value')[0].text
-
+        try:
+            book_pages = soup.select('.property_pages .property_value')[0].text
+        except:
+            book_pages = "No data"
+        
         #Getting book ISBN 13
         try:
             book_isbn_13 = soup.select('.13 .property_value')[0].text
@@ -164,10 +172,12 @@ def parse_to_json(books_detail_list, category_dir):
         valid_file_name = file_name_validation(filename)
         data = {valid_file_name: detail_dict}
         json_object = json.dumps(data, cls=JSONEncoder)
-        with open(valid_file_name, "w") as outfile:
+        with open(category_dir+ "\\" + valid_file_name, "w") as outfile:
             outfile.write(json_object)
 
 catagories = get_categories(main_url, page_categories)
-details = get_books(catagories[0])
-category_dir = make_directory(catagories[0].text, './books/')
+details = get_books(catagories[4])
+books_dir = make_directory("Books", ".")
+category_dir = make_directory(catagories[4].text, books_dir)
+print(category_dir)
 parse_to_json(details, category_dir)

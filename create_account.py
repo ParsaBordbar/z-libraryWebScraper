@@ -116,9 +116,9 @@ def user_verify_code(_email, _password, _user_name, _verification_code):
 
     return response.status_code, response.text
 
-email = "amd221381@gmail.com"
-password = "w2314efwcsde"
-user_name = "sadc232"
+email = "parsab71@gmail.com"
+password = "w2314efwcsdssss"
+user_name = "Parsa"
 
 status_code, response_text = register_user(email, password, user_name)
 
@@ -130,7 +130,3 @@ if response_text == '{"success":1}':
         verification_code = input("vared kon: ")
         status_code, response_text = user_verify_code(email,password, user_name, verification_code)
         print('', status_code, response_text, sep='\n ____:\t')
-
-
-
-
