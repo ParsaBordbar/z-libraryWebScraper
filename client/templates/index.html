@@ -81,7 +81,7 @@
             //details of book
             divOfInfo.classList = "flex w-1/2 flex-col gap-2";
             title.classList = "text-5xl capitalize";
-            author.classList = "text-5xl capitalize";
+            author.classList = "text-3xl text-gray-500 capitalize";
             desc.classList = "text-lg mb-14 h-20 overflow-hidden white-space-nowrap text-ellipsis";
             sectionOfInfo.classList = "flex flex-col gap-2";
             pCato.classList = "capitalize text-lg";
@@ -99,7 +99,7 @@
 
             title.innerHTML = items.title;
             author.innerHTML = items.author;
-            desc.innerHTML = items.descx;
+            desc.innerHTML = items.desc;
 
             pCato.innerHTML = "Categories: " + items.Categories;
             pYear.innerHTML = "Year: " + items.Year;
@@ -128,7 +128,7 @@
               pIPFS_CID,
               pIPFS_CID_blake2b
             );
-            divOfInfo.append(title, author, desc , sectionOfInfo);
+            divOfInfo.append(title, author, desc, sectionOfInfo);
             divOfImage.append(img, btnDownload);
             div.append(divOfImage, divOfInfo);
             dataParent.append(div)
@@ -139,17 +139,5 @@
           console.error("Error fetching data:", error);
         });
     });
-
-    // btn2.addEventListener('click' , (e) => {
-    //   e.preventDefault()
-    //   fetch(`${baseURL + '/insert'}`, {
-    //       method: "POST",
-    //       headers: {
-    //         "Content-Type": "application/json",
-    //       },
-    //       body: JSON.stringify({'username': 'john_doe', 'email': 'john@example.com'}),
-    //     });
-    //   }
-    // )
   </script>
 </html>
