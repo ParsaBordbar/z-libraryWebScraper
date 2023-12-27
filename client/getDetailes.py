@@ -29,8 +29,15 @@ def home():
 @app.route('/api/insert', methods=['POST'])
 def insert_document(new_book):
     users = mongo.db.books
-    result = users.insert_one(new_book)
-    return str(result)
+    result = users.count_documents(new_book)
+    print('ubeuwbgtbwb744744',result)
+    # Check if the result exists
+    if result > 0:
+        print("The JSON file is already in the database.")
+    else:
+        print("The JSON file is not in the database.")
+        result = users.insert_one(new_book)
+        return str(result)
 
 
 @app.route('/api/find', methods=['GET'])
@@ -109,7 +116,7 @@ def get_books (category):
             soup = BeautifulSoup(response.text, 'html.parser')
             book_desc = soup.select('#bookDescriptionBox')[0].text.strip()
         except:
-            book_desc = 'No description!'
+            book_desc = None
         #Getting Book Category
         book_cat = soup.select('.property_value a')[0].text
 
@@ -127,7 +134,7 @@ def get_books (category):
         try:
             book_edition = soup.select('.property_edition .property_value')[0].text
         except:
-            book_edition = 'No Edition!'
+            book_edition = None
 
         #Getting Book IPFS CID blake2b
         try:
@@ -166,7 +173,7 @@ def get_books (category):
         try:
           book_series = soup.select('.property_series .property_value')[0].text
         except:
-          book_series = 'No Series!'
+          book_series = None
 
         #Getting book file
         book_file = soup.select('.property__file .property_value')[0].text
@@ -244,9 +251,9 @@ def saved_books(books_detail_list, category_dir):
         img_downloader(detail_dict['imgLink'], path)
     
 catagories = get_categories(main_url, page_categories)
-details = get_books(catagories[3])
+details = get_books(catagories[1])
 books_dir = make_directory("Books", ".")
-category_dir = make_directory(catagories[3].text, books_dir)
+category_dir = make_directory(catagories[1].text, books_dir)
 saved_books(details, category_dir)
 
 if __name__ == '__main__':
