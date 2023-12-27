@@ -5,52 +5,7 @@ import os
 import re
 import logging
 from bs4 import BeautifulSoup
-
-# flask 
-from flask import Flask , render_template 
-from flask_pymongo import PyMongo
-from bson import json_util
-from flask_cors import CORS
-
-
-app = Flask(__name__)
-cors = CORS(app)
-app.config['CORS_HEADERS'] = 'application/json'
-# Configure the Flask app with the MongoDB URI
-app.config['MONGO_URI'] = 'mongodb://localhost:27017/zDataBase'
-mongo = PyMongo(app)
-
-@app.route('/')
-def home():
-    return render_template('index.html')
-
-
-# Now you can use the 'mongo' object to interact with your MongoDB database
-@app.route('/api/insert', methods=['POST'])
-def insert_document(new_book):
-    users = mongo.db.books
-    result = users.count_documents(new_book)
-    print('ubeuwbgtbwb744744',result)
-    # Check if the result exists
-    if result > 0:
-        print("The JSON file is already in the database.")
-    else:
-        print("The JSON file is not in the database.")
-        result = users.insert_one(new_book)
-        return str(result)
-
-
-@app.route('/api/find', methods=['GET'])
-def get_all_data():
-        collection = mongo.db.books
-        data = list(collection.find({}))  # Retrieve all documents from the collection
-        # Convert ObjectId to string using json_util
-        json_data = json_util.dumps(data)
-        return json_data, 200
-
-
-
-
+from app import * 
 
 
 main_url = r'https://singlelogin.re'
@@ -132,6 +87,7 @@ def get_books (category):
         #Getting Book url for It's Picture
         soup = BeautifulSoup(response.text, 'html.parser')
         book_img = soup.select('img')[index_of_cover_image]['src']
+
         
         #Getting Book Edition
         try:
@@ -257,9 +213,9 @@ def saved_books(books_detail_list, category_dir):
         img_downloader(detail_dict['imgLink'], path)
     
 catagories = get_categories(main_url, page_categories)
-details = get_books(catagories[1])
+details = get_books(catagories[4])
 books_dir = make_directory("Books", ".")
-category_dir = make_directory(catagories[1].text, books_dir)
+category_dir = make_directory(catagories[4].text, books_dir)
 saved_books(details, category_dir)
 
 if __name__ == '__main__':
