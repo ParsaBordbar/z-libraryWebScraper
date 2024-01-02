@@ -1,0 +1,292 @@
+<!-- <!DOCTYPE html>
+
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<style>
+.a{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 12px;
+}
+.b{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 12px;
+}
+
+.c{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 12px;
+}
+</style>
+<body>
+    <footer class="a">
+        <div class="c">
+            <h1>سالن زیبایی پری دخت</h1>
+            <h1>با کیفیت عالی و خوب</h1>
+        </div>
+        <div class="b">
+            <p>093864684080</p>
+            <p>parisa@gmail.com</p>
+        </div>
+    </footer>
+</body>
+</html> -->
+{% extends 'base.html'%} {% block content%}
+<h1 class="text-5xl font-bold my-12">All Categories</h1>
+<div
+  id="parent"
+  class="flex gap-4 grid min-[500px]:grid-cols-1 md:grid-cols-2 lg:grid-cols-4 flex-wrap justify-between"
+>
+  <!-- <div id="Art">
+    <h1
+      id="titleArt"
+      class="text-5xl mb-12 font-semibold underline hover:text-blue-600 uppercase"
+    ></h1>
+    <section id="secArt" class="flex px-8 flex-col gap-2"></section>
+  </div>
+
+  <div id="Astronomy">
+    <h1
+      id="titleAstronomy"
+      class="text-5xl mb-12 font-semibold underline hover:text-blue-600 uppercase"
+    ></h1>
+    <section id="secAstronomy" class="flex px-8 flex-col gap-2"></section>
+  </div>
+
+  <div id="BUSINESS_ECONOMICS">
+    <h1
+      id="titleBUSINESS_ECONOMICS"
+      class="text-5xl mb-12 font-semibold underline hover:text-blue-600 uppercase"
+    ></h1>
+    <section
+      id="secBUSINESS_ECONOMICS"
+      class="flex px-8 flex-col gap-2"
+    ></section>
+  </div>
+
+  <div id="BIOGRAPHY_AUTOBIOGRAPHY">
+    <h1
+      id="titleBIOGRAPHY_AUTOBIOGRAPHY"
+      class="text-5xl mb-12 font-semibold underline hover:text-blue-600 uppercase"
+    ></h1>
+    <section
+      id="secBIOGRAPHY_AUTOBIOGRAPHY"
+      class="flex px-8 flex-col gap-2"
+    ></section>
+  </div>
+
+  <div id="BIOLOGY_AND_OTHER_NATURAL_SCIENCES">
+    <h1
+      id="titleBIOLOGY_AND_OTHER_NATURAL_SCIENCES"
+      class="text-5xl mb-12 font-semibold underline hover:text-blue-600 uppercase"
+    ></h1>
+    <section
+      id="secBIOLOGY_AND_OTHER_NATURAL_SCIENCES"
+      class="flex px-8 flex-col gap-2"
+    ></section>
+  </div> -->
+</div>
+<script>
+  const baseURL = "http://localhost:5000/api";
+  const parent = document.getElementById("parent");
+  fetch(baseURL + "/find")
+    .then((response) => {
+      if (!response.ok) {
+        throw new Error("Network response was not ok");
+      }
+      return response.json();
+    })
+    .then((data) => {
+      // Handle the fetched data
+      console.log("All Data:", data);
+      //   data.map((items) => {
+
+      //     createCatoBox(items, "Arts ", "secArt", "Art");
+      //     createCatoBox(items, "Astronomy ", "secAstronomy", "Astronomy");
+      //     createCatoBox(
+      //       items,
+      //       "Business & Economics ",
+      //       "secBUSINESS_ECONOMICS",
+      //       "BUSINESS_ECONOMICS"
+      //     );
+      //     createCatoBox(
+      //       items,
+      //       "Biography & Autobiography ",
+      //       "secBIOGRAPHY_AUTOBIOGRAPHY",
+      //       "BIOGRAPHY_AUTOBIOGRAPHY"
+      //     );
+      //     createCatoBox(
+      //       items,
+      //       "Biology and other natural sciences ",
+      //       "secBIOLOGY_AND_OTHER_NATURAL_SCIENCES",
+      //       "BIOLOGY_AND_OTHER_NATURAL_SCIENCES"
+      //     );
+      //     createCatoBox(items, "Chemistry ", "secCHEMISTRY", "CHEMISTRY");
+      //     createCatoBox(
+      //       items,
+      //       "Comics & Graphic Novels ",
+      //       "secCOMICS_GRAPHIC_NOVELS",
+      //       "COMICS_GRAPHIC_NOVELS"
+      //     );
+      //     createCatoBox(
+      //       items,
+      //       "Children's Books ",
+      //       `secCHILDREN'S_BOOKS`,
+      //       `CHILDREN'S_BOOKS`
+      //     );
+      //     createCatoBox(items, "Computers ", `secCOMPUTERS`, `COMPUTERS`);
+      //     createCatoBox(
+      //       items,
+      //       "Crime, Thrillers & Mystery ",
+      //       `secCRIME_THRILLERS_MYSTERY`,
+      //       `CRIME_THRILLERS_MYSTERY`
+      //     );
+      //     createCatoBox(
+      //       items,
+      //       "Cookbooks, Food & Wine ",
+      //       `secCOOKBOOKS_FOOD_WINE`,
+      //       `COOKBOOKS_FOOD_WINE`
+      //     );
+      //     createCatoBox(
+      //       items,
+      //       "Earth Sciences ",
+      //       `secEARTH_SCIENCES`,
+      //       `EARTH_SCIENCES`
+      //     );
+      //     createCatoBox(items, "Engineering ", `secEngineering`, `ENGINEERING`);
+      //     createCatoBox(
+      //       items,
+      //       "Education Studies & Teaching ",
+      //       `secEducation_Studies_Teaching`,
+      //       `Education_Studies_TeachingTwo`
+      //     );
+      //     createCatoBox(items, "Erotica ", `secErotica`, `EroticaTwo`);
+      //     createCatoBox(items, "Fiction ", `secFiction`, `FictionTwo`);
+      //     createCatoBox(items, "Fantasy ", `secFantasy`, `FantasyTwo`);
+      //     createCatoBox(
+      //       items,
+      //       "Housekeeping & Leisure ",
+      //       `secHousekeeping_Leisure`,
+      //       `Housekeeping_LeisureTwo`
+      //     );
+      //     createCatoBox(
+      //       items,
+      //       "Jurisprudence & Law ",
+      //       `secJurisprudence_Law`,
+      //       `Jurisprudence_LawTwo`
+      //     );
+      //     createCatoBox(items, "Languages ", `secLanguages`, `LanguagesTwo`);
+      //     createCatoBox(
+      //       items,
+      //       "Linguistics ",
+      //       `secLinguistics`,
+      //       `LinguisticsTwo`
+      //     );
+      //     createCatoBox(
+      //       items,
+      //       "Mathematics ",
+      //       `secMathematics`,
+      //       `MathematicsTwo`
+      //     );
+      //     createCatoBox(items, "Medicine ", `secMedicine`, `MedicineTwo`);
+      //     createCatoBox(
+      //       items,
+      //       "Nature, Animals & Pets ",
+      //       `secNature_Animals_Pets`,
+      //       `Nature_Animals_PetsTwo`
+      //     );
+      //     createCatoBox(items, "Physics ", `secPhysics`, `PhysicsTwo`);
+      //     createCatoBox(items, "Poetry ", `secPoetry`, `PoetryTwo`);
+      //     createCatoBox(items, "Psychology ", `secPsychology`, `PsychologyTwo`);
+      //     createCatoBox(items, "Reference ", `secReference`, `ReferenceTwo`);
+      //     createCatoBox(items, "Religion & Spirituality ", `secReligion_Spirituality`, `Religion_SpiritualityTwo`);
+      //     createCatoBox(items, "Romance ", `secRomance`, `RomanceTwo`);
+      //     createCatoBox(items, "Science Fiction ", `secScience_Fiction`, `Science_FictionTwo`);
+      //   });
+
+      let count = 0;
+      const par = document.getElementById("parent");
+      data.map((items, index) => {
+        if (data[index + 1]) {
+          // const re = new RegExp("ab*c");
+          // console.log((items.Categories.split("-")[0]).split(' ')[0].length)
+
+          const re = /[A-Z][a-z].*\w/g;
+          const str = items.Categories.split("-")[0];
+          const myArray = str.match(re);
+          const strData = data[index + 1].Categories.split("-")[0];
+          const myArrayData = strData.match(re);
+          const strDataLatItem = data[data.length - 1].Categories.split("-")[0];
+          const myArrayDataLastItem = strDataLatItem.match(re);
+          // console.log(myArray[0]);
+          // console.log(myArrayData[0]);
+
+          if (myArray[0] != myArrayData[0]) {
+            const title = document.createElement("h1");
+            title.style.cursor = "pointer";
+            title.style.width = "fit-content";
+            title.classList =
+              "text-3xl mb-12 font-semibold underline hover:text-blue-600 uppercase";
+            // console.log(items.Categories);
+            title.innerHTML = myArray[0];
+            par.append(title);
+            clickAndNavigation(title);
+            // console.log("RUN");
+          } else if (myArrayDataLastItem[0] == myArray[0]) {
+            if (count == 0) {
+              const title = document.createElement("h1");
+              title.style.cursor = "pointer";
+              title.style.width = "fit-content";
+              title.classList =
+                "text-3xl mb-12 font-semibold underline hover:text-blue-600 uppercase";
+              title.innerHTML = myArrayDataLastItem[0];
+              par.append(title);
+              console.log(myArrayDataLastItem[0]);
+              clickAndNavigation(title);
+            }
+            count += 1;
+          }
+        }
+      });
+    })
+    .catch((error) => {
+      // Handle any errors
+      console.error("Error fetching data:", error);
+    });
+  const clickAndNavigation = (title) => {
+    title.addEventListener("click", (e) => {
+      console.log(title.innerHTML);
+      
+      window.location.href = `http://127.0.0.1:5000/cato/${title.innerHTML}`;
+    });
+  };
+  // const createCatoBox = (items, catoName, secID, parentOfBox) => {
+  //   const sec = document.getElementById(secID);
+  //   const title = document.getElementById(`title` + parentOfBox);
+  //   const par = document.getElementById(parentOfBox);
+  //   console.log(catoName ,title.innerHTML , 'title'+parentOfBox)
+  //   // const pTypeOfCato = document.createElement("p");
+  //   if (items.Categories.split("-")[0] == catoName ) {
+  //     par.innerHTML = catoName;
+
+  //     // pTypeOfCato.classList = "text-base  hover:text-blue-600 font-semibold";
+  //     // pTypeOfCato.style.width = "fit-contetn";
+  //     // pTypeOfCato.style.cursor = "pointer";
+  //     // pTypeOfCato.innerHTML = items.Categories.split("-")[1];
+  //     // sec.append(pTypeOfCato);
+  //   }else{
+
+  //   }
+
+  // };
+</script>
+{% endblock%}
