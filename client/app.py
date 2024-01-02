@@ -14,8 +14,15 @@ mongo = PyMongo(app)
 
 @app.route('/')
 def home():
-    return render_template('index.html')
+    return render_template('home.html')
 
+@app.route('/cato')
+def cato():
+    return render_template('cato.html')
+
+@app.route('/cato/<menu>')
+def selfCato(menu):
+    return render_template('selfCato.html')
 
 # Now you can use the 'mongo' object to interact with your MongoDB database
 @app.route('/api/insert', methods=['POST'])
@@ -39,3 +46,5 @@ def get_all_data():
         # Convert ObjectId to string using json_util
         json_data = json_util.dumps(data)
         return json_data, 200
+if __name__ == '__main__':
+    app.run(debug = True)
