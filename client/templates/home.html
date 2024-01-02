@@ -1,0 +1,124 @@
+{% extends 'base.html'%} {% block content%}
+<h1 class="text-5xl font-bold my-12">List Of Books</h1>
+<div
+  id="parent-card"
+  class="flex gap-4 grid min-[500px]:grid-cols-1 xl:grid-cols-2 flex-wrap justify-between"
+></div>
+<button id="btn">Show Data</button>
+<button id="btn2">Post Data</button>
+<div id="data"></div>
+<script>
+  const baseURL = "http://localhost:5000/api";
+  const btn = document.getElementById("btn");
+  const btn2 = document.getElementById("btn2");
+  const dataParent = document.getElementById("parent-card");
+
+  btn.addEventListener("click", async (e) => {
+    e.preventDefault();
+    await fetch(baseURL + "/find")
+      .then((response) => {
+        if (!response.ok) {
+          throw new Error("Network response was not ok");
+        }
+        return response.json();
+      })
+      .then((data) => {
+        // Handle the fetched data
+        console.log("All Data:", data);
+        data.map((items) => {
+          const div = document.createElement("div");
+          const divOfImage = document.createElement("div");
+          const img = document.createElement("img");
+          const btnDownload = document.createElement("button");
+
+          const divOfInfo = document.createElement("div");
+          const title = document.createElement("h1");
+          const author = document.createElement("p");
+          const desc = document.createElement("span");
+          const sectionOfInfo = document.createElement("section");
+          const pCato = document.createElement("p");
+          const pYear = document.createElement("p");
+          const pEdition = document.createElement("p");
+          const pPublisher = document.createElement("p");
+          const pLanguage = document.createElement("p");
+          const pPage = document.createElement("p");
+          const pISBN_10 = document.createElement("p");
+          const pISBN_13 = document.createElement("p");
+          const pSeries = document.createElement("p");
+          const pFile = document.createElement("p");
+          const pIPFS_CID = document.createElement("p");
+          const pIPFS_CID_blake2b = document.createElement("p");
+
+          div.classList = "flex card bg-gray-100 gap-4 p-4 rounded-lg";
+          //div of image section and button
+          divOfImage.classList = "flex flex-col items-center gap-2";
+          img.classList = "rounded-md h-64";
+          img.src = items.imgLink;
+          btnDownload.classList =
+            "bg-gray-200 w-full rounded-md hover:bg-gray-300 h-10";
+          btnDownload.innerHTML = "Download";
+
+          //details of book
+          divOfInfo.classList = "flex w-1/2 flex-col gap-2";
+          title.classList = "text-5xl capitalize";
+          author.classList = "text-3xl text-gray-500 capitalize";
+          desc.classList =
+            "text-lg mb-14 h-20 overflow-hidden white-space-nowrap text-ellipsis";
+          sectionOfInfo.classList = "flex flex-col gap-2";
+          pCato.classList = "capitalize text-lg";
+          pYear.classList = "capitalize text-lg";
+          pEdition.classList = "capitalize text-lg";
+          pPublisher.classList = "capitalize text-lg";
+          pLanguage.classList = "capitalize text-lg";
+          pPage.classList = "capitalize text-lg";
+          pISBN_10.classList = "capitalize text-lg";
+          pISBN_13.classList = "capitalize text-lg";
+          pSeries.classList = "capitalize text-lg";
+          pFile.classList = "capitalize text-lg";
+          pIPFS_CID.classList = "capitalize text-style text-lg";
+          pIPFS_CID_blake2b.classList = "capitalize text-style text-lg";
+
+          title.innerHTML = items.title;
+          author.innerHTML = items.author;
+          desc.innerHTML = items.desc;
+
+          pCato.innerHTML = "Categories: " + items.Categories;
+          pYear.innerHTML = "Year: " + items.Year;
+          pEdition.innerHTML = "Edition: " + items.Edition;
+          pPublisher.innerHTML = "Publisher: " + items.Publisher;
+          pLanguage.innerHTML = "Language: " + items.Language;
+          pPage.innerHTML = "Pages: " + items.Pages;
+          pISBN_10.innerHTML = "ISBN 10: " + items.ISBN_10;
+          pISBN_13.innerHTML = "ISBN 13: " + items.ISBN_13;
+          pSeries.innerHTML = "Series: " + items.Series;
+          pFile.innerHTML = "File: " + items.File;
+          pIPFS_CID.innerHTML = "IPFS CID: " + items.IPFS_CID;
+          pIPFS_CID_blake2b.innerHTML =
+            "IPFS CID blake2b: " + items.IPFS_CID_blake2b;
+
+          sectionOfInfo.append(
+            pCato,
+            pYear,
+            pPublisher,
+            pLanguage,
+            pPage,
+            pISBN_10,
+            pISBN_13,
+            pSeries,
+            pFile,
+            pIPFS_CID,
+            pIPFS_CID_blake2b
+          );
+          divOfInfo.append(title, author, desc, sectionOfInfo);
+          divOfImage.append(img, btnDownload);
+          div.append(divOfImage, divOfInfo);
+          dataParent.append(div);
+        });
+      })
+      .catch((error) => {
+        // Handle any errors
+        console.error("Error fetching data:", error);
+      });
+  });
+</script>
+{% endblock%}
