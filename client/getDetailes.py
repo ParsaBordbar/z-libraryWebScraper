@@ -218,5 +218,3 @@ books_dir = make_directory("Books", ".")
 category_dir = make_directory(catagories[4].text, books_dir)
 saved_books(details, category_dir)
 
-if __name__ == '__main__':
-    app.run(debug = True)
