@@ -217,4 +217,3 @@ details = get_books(catagories[4])
 books_dir = make_directory("Books", ".")
 category_dir = make_directory(catagories[4].text, books_dir)
 saved_books(details, category_dir)
-

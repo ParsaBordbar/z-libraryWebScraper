@@ -12,29 +12,23 @@
     <title>WebScraper</title>
   </head>
   <body>
-    <header class="flex bg-gray-100 w-full items-center h-20 px-4">
-      <ul class="flex items-center gap-2">
-        <li class="text-xl font-semibold text-black hover:text-blue-600">
+    <header class="flex bg-gray-700 w-full items-center h-16 px-4 fixed top-0 shadow-md ">
+      <ul class="flex items-center gap-16">
+        <li class="text-xl font-semibold text-white hover:text-blue-600">
           <a href="/"> Home </a>
         </li>
-        <li class="text-xl font-semibold text-black hover:text-blue-600">
+        <li class="text-xl font-semibold text-white hover:text-blue-600">
           <a href="/cato"> Categories </a>
+        </li>
+        <li class="ml-24 text-xl font-semibold text-black hover:text-blue-600 ">
+          <input type="text" placeholder='  search...' id="search" name="searchBar" class="border rounded-xl">
         </li>
       </ul>
     </header>
     <div style="margin: 0 auto;" class="container">
-      <main >
+      <main class='mt-20'>
         {% block content%} {% endblock%}
-        <!-- <h1 class="text-5xl font-bold mb-12">List Of Books</h1>
-        <div
-          id="parent-card"
-          class="flex gap-4 grid min-[500px]:grid-cols-1 xl:grid-cols-2 flex-wrap justify-between"
-        ></div> -->
-      </main>
-
-      
+      </main>      
     </div>
   </body>
-
-  
 </html>

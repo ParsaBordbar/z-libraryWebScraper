@@ -29,7 +29,6 @@ def selfCato(menu):
 def insert_document(new_book):
     users = mongo.db.books
     result = users.count_documents(new_book)
-    print('ubeuwbgtbwb744744',result)
     # Check if the result exists
     if result > 0:
         print("The JSON file is already in the database.")
