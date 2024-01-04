@@ -85,8 +85,11 @@ def get_books (category):
             book_publisher = None
 
         #Getting Book url for It's Picture
-        soup = BeautifulSoup(response.text, 'html.parser')
-        book_img = soup.select('img')[index_of_cover_image]['src']
+        try:
+            soup = BeautifulSoup(response.text, 'html.parser')
+            book_img = soup.select('img')[index_of_cover_image]['src']
+        except:
+            book_img = None
 
         
         #Getting Book Edition
@@ -180,28 +183,32 @@ def file_name_validation(file_name):
 
 #This will Download Book Covers!
 def img_downloader(img_link, _path):
-    with requests.get(img_link, stream=True) as r:
-            with open(_path + ".jpg", 'wb') as f:
-                for image in r.iter_content(chunk_size= 1024):
-                    f.write(image)
+    try:
+        with requests.get(img_link, stream=True) as r:
+                with open(_path + ".jpg", 'wb') as f:
+                    for image in r.iter_content(chunk_size= 1024):
+                        f.write(image)
+    except:
+        pass
 
 #The Dictionaries from get_books will be parsed into To json files here!
 def parse_to_json(detail_dict, category_dir):
-    filename = detail_dict['title'] + '.json'
-    titleBook = detail_dict['title'] 
-    split = category_dir.split('\\')
-    final_res = split[len(split) - 1]
-    print(split[len(split) - 1])
-    print("{category_dir}\{final_res}.json")
-    valid_file_name = file_name_validation(filename)
-    data =  detail_dict
-    json_object = json.dumps(data, cls=JSONEncoder)
+    try:
+        filename = detail_dict['title'] + '.json'
+        titleBook = detail_dict['title'] 
+        split = category_dir.split('\\')
+        final_res = split[len(split) - 1]
+        print(split[len(split) - 1])
+        print("{category_dir}\{final_res}.json")
+        valid_file_name = file_name_validation(filename)
+        data =  detail_dict
+        json_object = json.dumps(data, cls=JSONEncoder)
+        with open(category_dir + "\\" + valid_file_name, "w") as outfile:
+            outfile.write(json_object)
+        load_file(category_dir , final_res)
+        new_user = json_object.title
+    except: pass
 
-    with open(category_dir + "\\" + valid_file_name, "w") as outfile:
-        outfile.write(json_object)
-    load_file(category_dir , final_res)
-    new_user = json_object.title
-    print(new_user)
 
 def saved_books(books_detail_list, category_dir):
     for detail_dict in books_detail_list:
@@ -213,7 +220,7 @@ def saved_books(books_detail_list, category_dir):
         img_downloader(detail_dict['imgLink'], path)
     
 catagories = get_categories(main_url, page_categories)
-details = get_books(catagories[4])
+details = get_books(catagories[7])
 books_dir = make_directory("Books", ".")
-category_dir = make_directory(catagories[4].text, books_dir)
+category_dir = make_directory(catagories[7].text, books_dir)
 saved_books(details, category_dir)

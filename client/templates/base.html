@@ -12,16 +12,22 @@
     <title>WebScraper</title>
   </head>
   <body>
-    <header class="flex bg-gray-700 w-full items-center h-16 px-4 fixed top-0 shadow-md ">
-      <ul class="flex items-center gap-16">
+    <header class="flex bg-gray-700 w-full items-center h-16 px-4 fixed top-0 shadow-md px-16">
+      <ul class="flex items-center gap-16 flex-row">
         <li class="text-xl font-semibold text-white hover:text-blue-600">
           <a href="/"> Home </a>
         </li>
         <li class="text-xl font-semibold text-white hover:text-blue-600">
           <a href="/cato"> Categories </a>
         </li>
-        <li class="ml-24 text-xl font-semibold text-black hover:text-blue-600 ">
-          <input type="text" placeholder='  search...' id="search" name="searchBar" class="border rounded-xl">
+        <li class="flex-auto text-xl font-semibold text-black hover:text-blue-600 flex gap-2">
+          <input type="text" placeholder=' search...' id="search" name="searchBar" class="border rounded-xl">
+          <button id='searchBtn'> 
+            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <path d="M9 16C12.866 16 16 12.866 16 9C16 5.13401 12.866 2 9 2C5.13401 2 2 5.13401 2 9C2 12.866 5.13401 16 9 16Z" stroke="#ffff" stroke-width="2" stroke-miterlimit="10"/>
+            <path d="M21.9999 22L13.9399 13.94" stroke="#ffff" stroke-width="2" stroke-miterlimit="10"/>
+            </svg>
+          </button>
         </li>
       </ul>
     </header>
@@ -30,5 +36,35 @@
         {% block content%} {% endblock%}
       </main>      
     </div>
+    <script>
+    const input = document.getElementById("search");
+    const searchButton = document.getElementById("searchBtn");
+
+    searchButton.addEventListener("click", function() {
+      fetch(baseURL + "/find")
+        .then((response) => {
+          if (!response.ok) {
+            throw new Error("Network response was not ok");
+          }
+          return response.json();
+        })
+        .then((data) => {
+          // Handle the fetched data
+          console.log("All Data:", data);
+    
+          const items = data.map(item => item.title === input.value ? item : null).filter(item => item !== null);
+          if (items.length > 0) {
+            console.log("Found Items:", items);
+          } else {
+            console.log("Items not found");
+          }
+        })
+        .catch((error) => {
+          console.error('Error:', error);
+        });
+    });
+    
+
+    </script>
   </body>
 </html>
