@@ -24,9 +24,6 @@
       const par = document.getElementById("parent");
       data.map((items, index) => {
         if (data[index + 1]) {
-          // const re = new RegExp("ab*c");
-          // console.log((items.Categories.split("-")[0]).split(' ')[0].length)
-
           const re = /[A-Z][a-z].*\w/g;
           const str = items.Categories.split("-")[0];
           const myArray = str.match(re);
@@ -34,8 +31,6 @@
           const myArrayData = strData.match(re);
           const strDataLatItem = data[data.length - 1].Categories.split("-")[0];
           const myArrayDataLastItem = strDataLatItem.match(re);
-          // console.log(myArray[0]);
-          // console.log(myArrayData[0]);
 
           if (myArray[0] != myArrayData[0]) {
             const title = document.createElement("h1");

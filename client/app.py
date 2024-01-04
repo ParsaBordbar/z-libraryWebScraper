@@ -24,6 +24,10 @@ def cato():
 def selfCato(menu):
     return render_template('selfCato.html')
 
+@app.route('/search')
+def search():
+    return render_template('search.html')
+
 # Now you can use the 'mongo' object to interact with your MongoDB database
 @app.route('/api/insert', methods=['POST'])
 def insert_document(new_book):
