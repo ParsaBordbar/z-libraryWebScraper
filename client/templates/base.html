@@ -40,32 +40,11 @@
     </div>
     <script>
     const input = document.getElementById("search");
-    const searchButton = document.getElementById("searchBtn");
-
-    searchButton.addEventListener("click", function() {
-      fetch(baseURL + "/find")
-        .then((response) => {
-          if (!response.ok) {
-            throw new Error("Network response was not ok");
-          }
-          return response.json();
-        })
-        .then((data) => {
-          // Handle the fetched data
-          console.log("All Data:", data);
+    const searchButton = document.getElementById("searchBtn");    
     
-          const items = data.map(item => item.title === input.value ? item : null).filter(item => item !== null);
-          if (items.length > 0) {
-            console.log("Found Items:", items);
-            const stringItem = JSON.stringify(items)
-            localStorage.setItem("Founded Item", stringItem);
-          } else {
-            console.log("Item not found");
-          }
-        })
-        .catch((error) => {
-          console.error('Error:', error);
-        });
+    searchButton.addEventListener("click", function() {
+      const inputValue = JSON.stringify(input.value)
+      localStorage.setItem("searchedName", inputValue);
     });
     
 

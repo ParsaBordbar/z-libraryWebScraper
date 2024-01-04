@@ -1,9 +1,41 @@
 {% extends 'base.html'%}
 {% block content%}
-<h1> Matches find for you're search: </h1>
+<div id='searchBase' class='flex items-center flex-col pt-20 align-middle'>
+<h1 class='text-3xl pb-4'> Matches found for you're search: </h1>
+</div>
 <script>
-    data = localStorage.getItem("Founded Item");
-    console.log(data)
-
+    const baseURL = "http://localhost:5000/api";
+    let inputValue = localStorage.getItem("searchedName");
+    inputValue = inputValue.replace(/"/g, '');
+    console.log((inputValue))
+    fetch(baseURL + "/find")
+    .then((response) => {
+          if (!response.ok) {
+            throw new Error("Network response was not ok");
+          }
+          return response.json();
+        })
+        .then((data) => {
+          // Handle the fetched data
+          console.log("All Data:", data);
+    
+          // Find the object with the same title value as inputValue
+          const items = data.filter(item => item.author === inputValue);
+          
+          if (items.length > 0) {
+            console.log("Found Items:", items);
+          } else {
+            const noItem = document.createElement('h1');
+            const searchBase = document.getElementById('searchBase')
+            noItem.innerHTML = "No matches. 🤔"
+            noItem.classList = 'text-6xl bold'
+            searchBase.appendChild(noItem)
+            console.log("Item not found");
+          }
+        })
+        .catch((error) => {
+          console.error('Error:', error);
+        });
 </script>
+
 {% endblock%}
