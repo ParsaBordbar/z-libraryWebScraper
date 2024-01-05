@@ -1,7 +1,7 @@
 {% extends 'base.html'%}
 {% block content%}
-<div id='searchBase' class='flex items-center flex-col pt-20 align-middle'>
 <h1 class='text-3xl pb-4'> Matches found for you're search: </h1>
+<div id='searchBase' class='flex gap-4 grid min-[500px]:grid-cols-1 xl:grid-cols-2 flex-wrap justify-between'>
 </div>
 <script>
     const baseURL = "http://localhost:5000/api";
@@ -21,6 +21,96 @@
     
           // Find the object with the same title value as inputValue
           const items = data.filter(item => item.author === inputValue);
+          items.map((item)=>{
+
+          const div = document.createElement("div");
+          const divOfImage = document.createElement("div");
+          const img = document.createElement("img");
+          const btnDownload = document.createElement("button");
+
+          const divOfInfo = document.createElement("div");
+          const title = document.createElement("h1");
+          const author = document.createElement("p");
+          const desc = document.createElement("span");
+          const sectionOfInfo = document.createElement("section");
+          const pCato = document.createElement("p");
+          const pYear = document.createElement("p");
+          const pEdition = document.createElement("p");
+          const pPublisher = document.createElement("p");
+          const pLanguage = document.createElement("p");
+          const pPage = document.createElement("p");
+          const pISBN_10 = document.createElement("p");
+          const pISBN_13 = document.createElement("p");
+          const pSeries = document.createElement("p");
+          const pFile = document.createElement("p");
+          const pIPFS_CID = document.createElement("p");
+          const pIPFS_CID_blake2b = document.createElement("p");
+
+          div.classList = "flex card bg-gray-100 gap-4 p-4 rounded-lg";
+          //div of image section and button
+          divOfImage.classList = "flex flex-col items-center gap-2";
+          img.classList = "rounded-md h-64";
+          img.src = item.imgLink;
+          btnDownload.classList =
+            "bg-gray-500 text-white w-full rounded-md hover:bg-gray-700 text-white h-10";
+          btnDownload.innerHTML = "Download";
+
+          //details of book
+          divOfInfo.classList = "flex w-1/2 flex-col gap-2 overflow-hidden";
+          title.classList = "text-5xl capitalize";
+          author.classList = "text-3xl text-gray-500 capitalize";
+          desc.classList =
+            "text-lg mb-14 h-20 overflow-hidden white-space-nowrap text-ellipsis";
+          sectionOfInfo.classList = "flex flex-col gap-2";
+          pCato.classList = "capitalize text-lg";
+          pYear.classList = "capitalize text-lg";
+          pEdition.classList = "capitalize text-lg";
+          pPublisher.classList = "capitalize text-lg";
+          pLanguage.classList = "capitalize text-lg";
+          pPage.classList = "capitalize text-lg";
+          pISBN_10.classList = "capitalize text-lg";
+          pISBN_13.classList = "capitalize text-lg";
+          pSeries.classList = "capitalize text-lg";
+          pFile.classList = "capitalize text-lg";
+          pIPFS_CID.classList = "capitalize text-style text-lg";
+          pIPFS_CID_blake2b.classList = "capitalize text-style text-lg";
+
+          title.innerHTML = item.title;
+          author.innerHTML = item.author;
+          desc.innerHTML = item.desc;
+
+          pCato.innerHTML = "Categories: " + item.Categories;
+          pYear.innerHTML = "Year: " + item.Year;
+          pEdition.innerHTML = "Edition: " + item.Edition;
+          pPublisher.innerHTML = "Publisher: " + item.Publisher;
+          pLanguage.innerHTML = "Language: " + item.Language;
+          pPage.innerHTML = "Pages: " + item.Pages;
+          pISBN_10.innerHTML = "ISBN 10: " + item.ISBN_10;
+          pISBN_13.innerHTML = "ISBN 13: " + item.ISBN_13;
+          pSeries.innerHTML = "Series: " + item.Series;
+          pFile.innerHTML = "File: " + item.File;
+          pIPFS_CID.innerHTML = "IPFS CID: " + item.IPFS_CID;
+          pIPFS_CID_blake2b.innerHTML =
+            "IPFS CID blake2b: " + item.IPFS_CID_blake2b;
+
+          sectionOfInfo.append(
+            pCato,
+            pYear,
+            pPublisher,
+            pLanguage,
+            pPage,
+            pISBN_10,
+            pISBN_13,
+            pSeries,
+            pFile,
+            pIPFS_CID,
+            pIPFS_CID_blake2b
+          );
+          divOfInfo.append(title, author, desc, sectionOfInfo);
+          divOfImage.append(img, btnDownload);
+          div.append(divOfImage, divOfInfo);
+          searchBase.append(div);
+          });
           
           if (items.length > 0) {
             console.log("Found Items:", items);
@@ -28,7 +118,7 @@
             const noItem = document.createElement('h1');
             const searchBase = document.getElementById('searchBase')
             noItem.innerHTML = "No matches. 🤔"
-            noItem.classList = 'text-6xl bold'
+            noItem.classList = 'flex m-10 text-6xl bold'
             searchBase.appendChild(noItem)
             console.log("Item not found");
           }
