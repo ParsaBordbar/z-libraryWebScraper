@@ -1,11 +1,32 @@
 {% extends 'base.html'%} {% block content%}
-<h1 class="text-5xl font-bold my-12">List Of Books</h1>
 <div
   id="parent-card"
   class="flex gap-4 grid min-[500px]:grid-cols-1 xl:grid-cols-2 flex-wrap justify-between overflow-hidden m-4"
 ></div>
-<button id="btn">Show Data</button>
-<button id="btn2">Post Data</button>
+
+    <div id='searchbar' class='flex justify-center items-center flex-col'> 
+      <div class='flex bg-gray-600 justify-center items-center flex-col w-1/2 p-10 rounded-3xl gap-4 m-10 shadow-lg'>
+        <h1 class="flex justify-center text-8xl font-bold my-12 text-white">z-library</h1>
+      <div class='flex justify-center flex-row gap-1'>
+        <input type="text" placeholder=' search author...' id="searchHome" name="searchBar" class="shadow-md border-2 border-blue-900 rounded-xl w-80 h-12 text-2xl flex justify-center items-center">
+        <button id='searchBtnHome' class='bg-blue-600 w-12 h-12 rounded-3xl flex justify-center align-middle items-center'> 
+          <a href='/search'>
+            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+              <path d="M9 16C12.866 16 16 12.866 16 9C16 5.13401 12.866 2 9 2C5.13401 2 2 5.13401 2 9C2 12.866 5.13401 16 9 16Z" stroke="#ffff" stroke-width="2" stroke-miterlimit="10"/>
+              <path d="M21.9999 22L13.9399 13.94" stroke="#ffff" stroke-width="2" stroke-miterlimit="10"/>
+              </svg>
+          </a>
+        </button>
+      </div>
+      <div class='flex justify-center flex-row gap-4 mr-8'>
+        <button class='bg-blue-400 text-white rounded-2xl w-20 h-10 shadow-md' id="btn">All Books</button>
+        <button class='bg-red-400 text-white rounded-2xl w-20 h-10 shadow-md' id="btn2">Post Data</button>
+        <button class='bg-yellow-500 text-white rounded-2xl w-20 h-10 shadow-md' id="btn2"><a href='/cato'>Catagories </a></button>
+      </div>
+      </div>
+    </div>
+
+
 <div id="data"></div>
 <script>
   const baseURL = "http://localhost:5000/api";
@@ -120,5 +141,12 @@
         console.error("Error fetching data:", error);
       });
   });
+    const inputHome = document.getElementById("searchHome");
+    const searchButtonHome = document.getElementById("searchBtnHome");    
+    console.log(inputHome.value)
+    searchButtonHome.addEventListener("click", () => {
+      const inputHomeValue = JSON.stringify(inputHome.value)
+      localStorage.setItem("searchedName", inputHomeValue);
+    });
 </script>
 {% endblock%}
