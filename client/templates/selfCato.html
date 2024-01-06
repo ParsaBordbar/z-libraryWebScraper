@@ -6,34 +6,65 @@
   ></div>
 </div>
 <script>
-  const checkValidURL = (checkValidParamert) => {
-    let finalURL;
-    console.log(checkValidParamert);
-    if (checkValidParamert) {
+  let urlParamsLocation = window.location.href;
+
+  const checkValidURL = () => {
+    let finalURL = null;
+    const checkValid = urlParamsLocation.match("%20&amp;%20");
+    if (checkValid) {
       finalURL = urlParamsLocation.replace("%20&amp;%20", " & ");
       console.log("has &");
-    } else {
-      finalURL = urlParamsLocation.replace("%20", " ");
-      if (finalURL.replace("%20", " ")) {
-        for (let i = 0; i <= finalURL.split("/").length - 1; i++) {
-          finalURL = finalURL.replace("%20", " ");
-        }
-        console.log(finalURL)
-      }
-
-      console.log("has not &");
     }
+    if (finalURL) {
+      console.log(finalURL.split("/")[finalURL.split("/").length - 1]);
+      const checkValidSpace = finalURL;
+      console.log(checkValidSpace.split("/"), checkValidSpace.match("%20"));
+      for (let i = 0; i <= checkValidSpace.length; i++) {
+        console.log(i, checkValidSpace[i]);
+        if (checkValidSpace.match("%20")) {
+          finalURL = checkValidSpace.replace("%20", " ");
+          console.log(finalURL);
+        }
+      }
+    }
+
+    if (!finalURL) {
+      if (urlParamsLocation.match("%20")) {
+        console.log(urlParamsLocation.split("/")[urlParamsLocation.split("/").length - 1]);
+        const checkValidSpace = urlParamsLocation;
+        console.log(checkValidSpace.split("/"), checkValidSpace.match("%20"));
+        for (let i = 0; i <= checkValidSpace.length; i++) {
+          console.log(i, checkValidSpace[i]);
+          if (checkValidSpace.match("%20")) {
+            urlParamsLocation = checkValidSpace.replace("%20", " ");
+            console.log(urlParamsLocation);
+          }
+        }
+      } else {
+        finalURL =
+          urlParamsLocation.split("/")[urlParamsLocation.split("/").length - 1];
+      }
+    }
+    // console.log(finalURL.split("/")[finalURL.split("/").length - 1]);
+
+    // if (checkValidSpace) {
+    //   finalURL = urlParamsLocation.replace("%20", " ");
+    //   if (finalURL.replace("%20", " ")) {
+    //     for (let i = 0; i <= finalURL.split("/").length - 1; i++) {
+    //       finalURL = finalURL.replace("%20", " ");
+    //     }
+    //     console.log(finalURL);
+    //   }
+
+    //   console.log("has not &");
+    // }
     return finalURL;
   };
 
-  const urlParamsLocation = window.location.href;
-  const checkValid = urlParamsLocation.match("%20&amp;%20");
-
+  console.log(checkValidURL());
   const seprate =
-    checkValidURL(checkValid).split("/")[
-      checkValidURL(checkValid).split("/").length - 1
-    ];
-  // console.log(seprate);
+    checkValidURL().split("/")[checkValidURL().split("/").length - 1];
+  console.log(seprate);
 
   const baseURL = "http://localhost:5000/api";
   const parent = document.getElementById("parent");
@@ -54,7 +85,7 @@
       data.map((items) => {
         const str = items.Categories.split("-")[0];
         const myArray = str.match(re);
-        console.log(myArray[0]);
+        // console.log(myArray[0]);
         if (myArray[0] == seprate) {
           const div = document.createElement("div");
           const divOfImage = document.createElement("div");
