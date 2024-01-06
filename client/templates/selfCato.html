@@ -47,19 +47,7 @@
           urlParamsLocation.split("/")[urlParamsLocation.split("/").length - 1];
       }
     }
-    // console.log(finalURL.split("/")[finalURL.split("/").length - 1]);
 
-    // if (checkValidSpace) {
-    //   finalURL = urlParamsLocation.replace("%20", " ");
-    //   if (finalURL.replace("%20", " ")) {
-    //     for (let i = 0; i <= finalURL.split("/").length - 1; i++) {
-    //       finalURL = finalURL.replace("%20", " ");
-    //     }
-    //     console.log(finalURL);
-    //   }
-
-    //   console.log("has not &");
-    // }
     return finalURL;
   };
 
@@ -87,7 +75,6 @@
       data.map((items) => {
         const str = items.Categories.split("-")[0];
         const myArray = str.match(re);
-        // console.log(myArray[0]);
         if (myArray[0] == seprate) {
           const div = document.createElement("div");
           const divOfImage = document.createElement("div");
@@ -113,7 +100,6 @@
           const pIPFS_CID_blake2b = document.createElement("p");
 
           div.classList = "flex card bg-gray-100 gap-4 p-4 rounded-lg";
-          //div of image section and button
           divOfImage.classList = "flex flex-col items-center gap-2";
           img.classList = "rounded-md h-64";
           img.src = items.imgLink;
