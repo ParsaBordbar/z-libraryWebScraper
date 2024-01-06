@@ -2,7 +2,7 @@
 <div id="parent">
   <div
     id="parent-card"
-    class="flex gap-4 grid min-[500px]:grid-cols-1 xl:grid-cols-2 flex-wrap justify-between"
+    class="flex gap-4 grid min-[500px]:grid-cols-1 xl:grid-cols-2 flex-wrap m-4 justify-between overflow-hidden"
   ></div>
 </div>
 <script>
@@ -125,7 +125,7 @@
           pSeries.classList = "capitalize text-lg";
           pFile.classList = "capitalize text-lg";
           pIPFS_CID.classList = "capitalize text-style text-lg";
-          pIPFS_CID_blake2b.classList = "capitalize text-style text-lg";
+          pIPFS_CID_blake2b.classList = "capitalize text-style text-lg overflow-hidden";
 
           title.innerHTML = items.title;
           author.innerHTML = items.author;

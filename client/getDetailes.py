@@ -220,7 +220,7 @@ def saved_books(books_detail_list, category_dir):
         img_downloader(detail_dict['imgLink'], path)
     
 catagories = get_categories(main_url, page_categories)
-details = get_books(catagories[7])
+details = get_books(catagories[11])
 books_dir = make_directory("Books", ".")
-category_dir = make_directory(catagories[7].text, books_dir)
+category_dir = make_directory(catagories[11].text, books_dir)
 saved_books(details, category_dir)
