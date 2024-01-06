@@ -23,44 +23,50 @@
       console.log("All Data:", data);
   
       let count = 0;
-      const par = document.getElementById("parent");
-      data.map((items, index) => {
-        if (data[index + 1]) {
-          const re = /[A-Z][a-z].*\w/g;
-          const str = items.Categories.split("-")[0];
-          const myArray = str.match(re);
-          const strData = data[index + 1].Categories.split("-")[0];
-          const myArrayData = strData.match(re);
-          const strDataLatItem = data[data.length - 1].Categories.split("-")[0];
-          const myArrayDataLastItem = strDataLatItem.match(re);
+const par = document.getElementById("parent");
+let renderedNames = {}; // Object to keep track of rendered names
 
-          if (myArray[0] != myArrayData[0]) {
-            const title = document.createElement("h1");
-            title.style.cursor = "pointer";
-            title.style.width = "fit-content";
-            title.classList =
-              "text-3xl mb-12 font-semibold underline hover:text-blue-600 uppercase";
-            // console.log(items.Categories);
-            title.innerHTML = myArray[0];
-            par.append(title);
-            clickAndNavigation(title);
-            // console.log("RUN");
-          } else if (myArrayDataLastItem[0] == myArray[0]) {
-            if (count == 0) {
-              const title = document.createElement("h1");
-              title.style.cursor = "pointer";
-              title.style.width = "fit-content";
-              title.classList =
-                "text-3xl mb-12 font-semibold underline hover:text-blue-600 uppercase";
-              title.innerHTML = myArrayDataLastItem[0];
-              par.append(title);
-              console.log(myArrayDataLastItem[0]);
-              clickAndNavigation(title);
-            }
-            count += 1;
-          }
-        }
-      });
+data.map((items, index) => {
+  if (data[index + 1]) {
+    const re = /[A-Z][a-z].*\w/g;
+    const str = items.Categories.split("-")[0];
+    const myArray = str.match(re);
+    const strData = data[index + 1].Categories.split("-")[0];
+    const myArrayData = strData.match(re);
+    const strDataLatItem = data[data.length - 1].Categories.split("-")[0];
+    const myArrayDataLastItem = strDataLatItem.match(re);
+
+    if (myArray[0] != myArrayData[0] && !renderedNames[myArray[0]]) {
+      const title = document.createElement("h1");
+      title.style.cursor = "pointer";
+      title.style.width = "fit-content";
+      title.classList =
+        "text-3xl mb-12 font-semibold underline hover:text-blue-600 uppercase";
+      title.innerHTML = myArray[0];
+      par.append(title);
+      clickAndNavigation(title);
+
+      // Mark the name as rendered
+      renderedNames[myArray[0]] = true;
+    } else if (myArrayDataLastItem[0] == myArray[0]) {
+      if (count == 0 && !renderedNames[myArrayDataLastItem[0]]) {
+        const title = document.createElement("h1");
+        title.style.cursor = "pointer";
+        title.style.width = "fit-content";
+        title.classList =
+          "text-3xl mb-12 font-semibold underline hover:text-blue-600 uppercase";
+        title.innerHTML = myArrayDataLastItem[0];
+        par.append(title);
+        console.log(myArrayDataLastItem[0]);
+        clickAndNavigation(title);
+
+        renderedNames[myArrayDataLastItem[0]] = true;
+      }
+      count += 1;
+    }
+  }
+});
+
     })
     .catch((error) => {
       // Handle any errors

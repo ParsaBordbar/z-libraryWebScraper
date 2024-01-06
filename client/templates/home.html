@@ -142,7 +142,6 @@
   });
     const inputHome = document.getElementById("searchHome");
     const searchButtonHome = document.getElementById("searchBtnHome");    
-    console.log(inputHome.value)
     searchButtonHome.addEventListener("click", () => {
       const inputHomeValue = JSON.stringify(inputHome.value)
       localStorage.setItem("searchedName", inputHomeValue);
