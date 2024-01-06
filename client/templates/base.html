@@ -12,7 +12,7 @@
     <title>WebScraper</title>
   </head>
   <body>
-    <header class="flex bg-gray-700 w-full items-center h-16 px-4 fixed top-0 shadow-md px-16">
+    <header class="flex bg-gray-700 w-full items-center h-16 px-4 fixed top-0 shadow-md px-16 z-0">
       <ul class="flex items-center gap-16 flex-row">
         <li class="text-xl font-semibold text-white hover:text-blue-600">
           <a href="/"> Home </a>
@@ -21,7 +21,7 @@
           <a href="/cato"> Categories </a>
         </li>
         <li class="flex-auto text-xl font-semibold text-black hover:text-blue-600 flex gap-2">
-          <input type="text" placeholder=' search...' id="search" name="searchBar" class="border rounded-xl">
+          <input type="text" placeholder=' search author...' id="search" name="searchBar" class="border rounded-xl">
           <button id='searchBtn'> 
             <a href='/search'>
               <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -42,10 +42,17 @@
     const input = document.getElementById("search");
     const searchButton = document.getElementById("searchBtn");    
     
-    searchButton.addEventListener("click", function() {
+    searchButton.addEventListener("click", () => {
       const inputValue = JSON.stringify(input.value)
       localStorage.setItem("searchedName", inputValue);
     });
+
+    searchButton.addEventListener('keydown', (event) => {
+      if (event.key === 'Enter') {
+          event.preventDefault();
+          searchButton.click();
+      }
+  });
     
 
     </script>
