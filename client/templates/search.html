@@ -1,7 +1,7 @@
 {% extends 'base.html'%}
 {% block content%}
-<h1 class='text-3xl pb-4'> Matches found for you're search: </h1>
-<div id='searchBase' class='flex gap-4 grid min-[500px]:grid-cols-1 xl:grid-cols-2 flex-wrap justify-between m-4'>
+<h1 class='flex justify-center text-3xl pb-4'> Matches found for you're search: </h1>
+<div id='searchBase' class='flex gap-4 grid min-[500px]:grid-cols-1 xl:grid-cols-2 flex-wrap justify-center m-4'>
 </div>
 <script>
     const baseURL = "http://localhost:5000/api";
@@ -118,7 +118,7 @@
             const noItem = document.createElement('h1');
             const searchBase = document.getElementById('searchBase')
             noItem.innerHTML = "No matches. 🤔"
-            noItem.classList = 'flex m-10 text-6xl bold'
+            noItem.classList = 'flex text-6xl bold justify-center items-center col-span-2'
             searchBase.appendChild(noItem)
             console.log("Item not found");
           }
