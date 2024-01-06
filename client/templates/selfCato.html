@@ -2,7 +2,7 @@
 <div id="parent">
   <div
     id="parent-card"
-    class="flex gap-4 grid min-[500px]:grid-cols-1 xl:grid-cols-2 flex-wrap justify-between overflow-hidden m-4"
+    class="flex gap-4 grid min-[500px]:grid-cols-1 xl:grid-cols-2 flex-wrap justify-between"
   ></div>
 </div>
 <script>
@@ -30,7 +30,9 @@
 
     if (!finalURL) {
       if (urlParamsLocation.match("%20")) {
-        console.log(urlParamsLocation.split("/")[urlParamsLocation.split("/").length - 1]);
+        console.log(
+          urlParamsLocation.split("/")[urlParamsLocation.split("/").length - 1]
+        );
         const checkValidSpace = urlParamsLocation;
         console.log(checkValidSpace.split("/"), checkValidSpace.match("%20"));
         for (let i = 0; i <= checkValidSpace.length; i++) {
@@ -63,14 +65,8 @@
 
   console.log(checkValidURL());
   const seprate =
-<<<<<<< HEAD
     checkValidURL().split("/")[checkValidURL().split("/").length - 1];
   console.log(seprate);
-=======
-    checkValidURL(checkValid).split("/")[
-      checkValidURL(checkValid).split("/").length - 1
-    ];
->>>>>>> 76940a3e5b4f5265734a9e1b423189f85e81d534
 
   const baseURL = "http://localhost:5000/api";
   const parent = document.getElementById("parent");
@@ -143,7 +139,7 @@
           pSeries.classList = "capitalize text-lg";
           pFile.classList = "capitalize text-lg";
           pIPFS_CID.classList = "capitalize text-style text-lg";
-          pIPFS_CID_blake2b.classList = "capitalize text-style text-lg overflow-hidden";
+          pIPFS_CID_blake2b.classList = "capitalize text-style text-lg";
 
           title.innerHTML = items.title;
           author.innerHTML = items.author;
