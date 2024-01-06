@@ -1,7 +1,7 @@
 {% extends 'base.html'%}
 {% block content%}
 <h1 class='text-3xl pb-4'> Matches found for you're search: </h1>
-<div id='searchBase' class='flex gap-4 grid min-[500px]:grid-cols-1 xl:grid-cols-2 flex-wrap justify-between'>
+<div id='searchBase' class='flex gap-4 grid min-[500px]:grid-cols-1 xl:grid-cols-2 flex-wrap justify-between m-4'>
 </div>
 <script>
     const baseURL = "http://localhost:5000/api";
@@ -52,7 +52,7 @@
           img.classList = "rounded-md h-64";
           img.src = item.imgLink;
           btnDownload.classList =
-            "bg-gray-500 text-white w-full rounded-md hover:bg-gray-700 text-white h-10";
+          "bg-gray-500 text-white w-full rounded-md hover:bg-gray-700 text-white h-10"
           btnDownload.innerHTML = "Download";
 
           //details of book
@@ -73,7 +73,7 @@
           pSeries.classList = "capitalize text-lg";
           pFile.classList = "capitalize text-lg";
           pIPFS_CID.classList = "capitalize text-style text-lg";
-          pIPFS_CID_blake2b.classList = "capitalize text-style text-lg";
+          pIPFS_CID_blake2b.classList = "capitalize text-style text-lg ";
 
           title.innerHTML = item.title;
           author.innerHTML = item.author;

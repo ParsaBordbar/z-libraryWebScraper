@@ -2,7 +2,7 @@
 <div id="parent">
   <div
     id="parent-card"
-    class="flex gap-4 grid min-[500px]:grid-cols-1 xl:grid-cols-2 flex-wrap justify-between overflow-hidden"
+    class="flex gap-4 grid min-[500px]:grid-cols-1 xl:grid-cols-2 flex-wrap justify-between overflow-hidden m-4"
   ></div>
 </div>
 <script>
@@ -33,7 +33,6 @@
     checkValidURL(checkValid).split("/")[
       checkValidURL(checkValid).split("/").length - 1
     ];
-  // console.log(seprate);
 
   const baseURL = "http://localhost:5000/api";
   const parent = document.getElementById("parent");
@@ -106,7 +105,7 @@
           pSeries.classList = "capitalize text-lg";
           pFile.classList = "capitalize text-lg";
           pIPFS_CID.classList = "capitalize text-style text-lg";
-          pIPFS_CID_blake2b.classList = "capitalize text-style text-lg";
+          pIPFS_CID_blake2b.classList = "capitalize text-style text-lg overflow-hidden";
 
           title.innerHTML = items.title;
           author.innerHTML = items.author;
