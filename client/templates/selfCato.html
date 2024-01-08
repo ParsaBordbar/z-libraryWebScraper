@@ -30,18 +30,16 @@
 
     if (!finalURL) {
       if (urlParamsLocation.match("%20")) {
-        console.log(
-          urlParamsLocation.split("/")[urlParamsLocation.split("/").length - 1]
-        );
         const checkValidSpace = urlParamsLocation;
         console.log(checkValidSpace.split("/"), checkValidSpace.match("%20"));
         for (let i = 0; i <= checkValidSpace.length; i++) {
           console.log(i, checkValidSpace[i]);
           if (checkValidSpace.match("%20")) {
-            urlParamsLocation = checkValidSpace.replace("%20", " ");
-            console.log(urlParamsLocation);
+            urlParamsLocation = urlParamsLocation.replace("%20", " ");
+            console.log(urlParamsLocation , 'URL');
           }
         }
+        finalURL = urlParamsLocation
       } else {
         finalURL =
           urlParamsLocation.split("/")[urlParamsLocation.split("/").length - 1];
