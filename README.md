@@ -1,5 +1,3 @@
-**
-
 # Z-library Project
 The goal is to get data from Z-library website store them in a database and render them as a website.
 The Project has two parts, getting the data(scraping it) and making a website with data.
