@@ -1,3 +1,4 @@
+![Screenshot (408)](https://github.com/ParsaBordbar/z-libraryWebScraper/assets/124056966/6dcb2a6f-bd0a-4e32-b928-faaaf390ae1d)
 # Z-library Project
 The goal is to get data from Z-library website store them in a database and render them as a website.
 The Project has two parts, getting the data(scraping it) and making a website with data.
