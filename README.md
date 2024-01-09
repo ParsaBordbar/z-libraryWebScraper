@@ -84,4 +84,5 @@ The JSON we extracted and created in the scraping part, goes into  a collection 
  - css3
  - tailwindcss
  - JavaScript
+
 For the Front-end side of the stuff we used basic html5 with tailwind library, the front part is mostly responsive, we used grid base system for it's css side, so it's mostly, responsive and also we implemented a navbar for navigation in routes, the rendered elements are created in JS and the search part is actually implimented using JS as well. 
