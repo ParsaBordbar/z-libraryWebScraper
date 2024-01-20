@@ -40,6 +40,14 @@ def insert_document(new_book):
         print("The JSON file is not in the database.")
         result = users.insert_one(new_book)
         return str(result)
+
+@app.route('/api/find', methods=['GET'])
+def get_all_data():
+        collection = mongo.db.books
+        data = list(collection.find({}))  # Retrieve all documents from the collection
+        # Convert ObjectId to string using json_util
+        json_data = json_util.dumps(data)
+        return json_data, 200
     
 if __name__ == '__main__':
     app.run(debug = True)
