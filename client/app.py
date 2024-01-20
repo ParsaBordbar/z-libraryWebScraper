@@ -27,6 +27,19 @@ def selfCato(menu):
 @app.route('/search')
 def search():
     return render_template('search.html')
+
+# Now you can use the 'mongo' object to interact with your MongoDB database
+@app.route('/api/insert', methods=['POST'])
+def insert_document(new_book):
+    users = mongo.db.books
+    result = users.count_documents(new_book)
+    # Check if the result exists
+    if result > 0:
+        print("The JSON file is already in the database.")
+    else:
+        print("The JSON file is not in the database.")
+        result = users.insert_one(new_book)
+        return str(result)
     
 if __name__ == '__main__':
     app.run(debug = True)
