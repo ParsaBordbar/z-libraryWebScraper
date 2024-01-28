@@ -38,7 +38,14 @@ class Book_db:
             for row in rows:
                 d = {}
                 for i, col in enumerate(self.cursor.description):
-                    d[col[0]] = row[i]
+                    if col[0] == '_desc':
+                        d['desc'] = row[i]
+                    elif col[0] == '_Year':
+                        d['Year'] = row[i]
+                    elif col[0] == '_Language':
+                        d['Language'] = row[i]
+                    else:
+                        d[col[0]] = row[i]
                 result.append(d)
 
             # Convert the list of dictionaries to JSON
@@ -54,3 +61,7 @@ class Book_db:
             print('tamam')
         except  Exception as e:
             print('nashod: ', e)
+
+
+db = Book_db()
+print()

@@ -253,5 +253,5 @@ def multy_threads():
 
 if __name__ == '__main__':
     time_multy = time.time()
-    single_thread()
+    multy_threads()
     print(time_multy := time.time() - time_multy)
